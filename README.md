@@ -1,11 +1,11 @@
-NetApp Ansible Playbooks
+# NetApp Ansible Playbooks
 
-Date: 3-10-2019
+#### Date: 3-10-2019
+#### Version: 1.0
 
-Version: 1
 
-Description
+## Description
 
 Contained within this repository are NetApp Ansible playbooks
 
-File Listing & Description
+## File Listing & Description
