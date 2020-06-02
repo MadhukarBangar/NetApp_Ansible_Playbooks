@@ -1,0 +1,20 @@
+- hosts: localhost
+  gather_facts: false
+  name: Decommission 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Delete Lun
+    na_ontap_lun:
+     state: absent
+     name: "{{ lun_name }}"
+     flexvol_name: "{{ vol_name }}"
+     vserver: "{{ svm_name }}"
+     <<: *login

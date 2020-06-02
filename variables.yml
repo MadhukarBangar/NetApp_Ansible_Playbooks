@@ -1,0 +1,48 @@
+
+# Cluster Login
+clustername: SH_Cluster3
+clusterip: 10.216.51.186
+user: admin
+pass: P@ssw0rd
+https_option: true
+validate_certs_option: false
+
+# Variables for 'aggregate'
+aggr_root_oldname: 
+aggr_root_newname: 
+aggr: ansible_aggr
+aggr_data_rename:
+aggr_data_newname:
+disk_count: 5
+
+# Variables for 'Create_svm'
+svm_name: ansible_svm
+root_volname: ansible_svm_root
+root_volaggr: ansible_aggr
+root_volsecurity: unix
+allowed_aggrs: ansible_aggr
+allowed_protocols: nfs,cifs,iscsi,fcp
+svm_dnsdomain: gsdc.local
+svm_dnsservers: 192.168.1.101
+
+
+# Variables for 'create_nfs_volume'
+
+vol_name: nfs_vol
+vol_size: 1 # Size is in GB
+export_policy: default
+client_match: 0.0.0.0/0
+client_match1: 1.1.1.0/24
+
+# Variables for 'qtree'
+qtree_name: qtree1
+
+# Variables for 'lun'
+lun_name: lun1
+lun_size: 100
+
+# Variables for 'Cifs'
+cifs_vol: cifs_vol
+share_name: win_share
+
+# Variables for snapmirror

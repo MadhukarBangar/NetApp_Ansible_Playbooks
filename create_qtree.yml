@@ -1,0 +1,20 @@
+- hosts: localhost
+  gather_facts: false
+  name: Create Qtree 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Create Qtree
+    na_ontap_qtree:
+      state: present
+      name: "{{ qtree_name }}"
+      flexvol_name: "{{ vol_name }}"
+      vserver: "{{ svm_name }}"
+      <<: *login

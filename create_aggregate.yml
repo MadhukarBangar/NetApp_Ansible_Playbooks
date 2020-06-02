@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: false
+  name: NetApp Aggregate Setup
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Create and Online Aggregate
+    na_ontap_aggregate:
+      state: present
+      service_state: online
+      name: "{{ aggr }}"
+      disk_count: "{{ disk_count }}"
+      wait_for_online: true
+      time_out: 300
+      <<: *login
+  

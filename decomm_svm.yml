@@ -1,0 +1,25 @@
+- hosts: localhost
+  gather_facts: false
+  name: Decommission SVM 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Delete SVM root Volume
+    na_ontap_volume:
+     state: absent
+     name: "{{ root_volname }}"
+     vserver: "{{ svm_name }}"
+     <<: *login
+  - name: Delete SVM
+    na_ontap_svm: 
+      state: absent
+      name: "{{ svm_name }}"
+      <<: *login
+  

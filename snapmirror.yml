@@ -1,0 +1,36 @@
+- hosts: localhost
+  gather_facts: false
+  name: Create Snapmirror
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Create dest Volume
+    na_ontap_volume:
+      state: present
+      name: dest_vol
+      aggregate_name: "{{ aggr }}"
+      size: "{{ vol_size }}"
+      size_unit: gb
+      space_guarantee: none
+      vserver: "{{ svm_name }}"
+      type: DP 
+      wait_for_completion: true
+      <<: *login
+  - name: Create ONTAP/ONTAP SnapMirror
+    na_ontap_snapmirror:
+     state: present
+     source_volume: nfs_vol
+     destination_volume: dest_vol
+     source_vserver: "{{ svm_name }}"
+     destination_vserver: "{{ svm_name }}"
+     schedule: hourly
+     policy: MirrorAllSnapshots
+     max_transfer_rate: 1000
+     <<: *login

@@ -1,0 +1,24 @@
+- hosts: localhost
+  gather_facts: false
+  name: Create New Qtree 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Create LUN
+    na_ontap_lun:
+      state: present
+      name: "{{ lun_name }}"
+      flexvol_name: "{{ vol_name }}"
+      vserver: "{{ svm_name }}"
+      size: "{{ lun_size }}"
+      size_unit: mb
+      ostype: linux
+      space_reserve: False
+      <<: *login

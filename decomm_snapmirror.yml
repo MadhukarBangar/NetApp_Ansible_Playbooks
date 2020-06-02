@@ -1,0 +1,25 @@
+- hosts: localhost
+  gather_facts: false
+  name: Decommission 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Delete SnapMirror
+    na_ontap_snapmirror:
+     state: absent
+     source_hostname: "{{ clusterip }}"
+     destination_path: ansible_svm:dest_vol
+     <<: *login
+  - name: Delete dest Volume
+    na_ontap_volume:
+     state: absent
+     name: dest_vol
+     vserver: "{{ svm_name }}"
+     <<: *login

@@ -1,0 +1,34 @@
+- hosts: localhost
+  gather_facts: false
+  name: Decommission 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Delete cifs_server
+    na_ontap_cifs_server:
+     state: absent
+     vserver: "{{ svm_name }}"
+     cifs_server_name: cifs_server
+     workgroup: workgroup
+     <<: *login
+  
+  - name: Delete CIFS share
+    na_ontap_cifs:
+      state: absent
+      share_name: "{{ share_name }}"
+      path: "{{ '/' + cifs_vol }}"
+      vserver: "{{ svm_name }}"
+      <<: *login
+  - name: Delete cifs Volume
+    na_ontap_volume:
+      state: absent
+      name: "{{ cifs_vol }}"
+      vserver: "{{ svm_name }}"
+      <<: *login

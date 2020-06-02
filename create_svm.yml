@@ -1,0 +1,32 @@
+- hosts: localhost
+  gather_facts: false
+  name: Create New SVM 
+  vars:
+    login: &login
+     hostname: "{{ clusterip }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     https: "{{ https_option }}"
+     validate_certs: "{{ validate_certs_option }}"
+  vars_files:
+  - variables.yml
+  tasks:
+  - name: Create SVM
+    na_ontap_svm: 
+      state: present
+      name: "{{ svm_name }}"
+      root_volume: "{{ root_volname }}"
+      root_volume_aggregate: "{{ root_volaggr }}"
+      root_volume_security_style: "{{ root_volsecurity }}"
+      aggr_list: "{{ allowed_aggrs }}"
+      allowed_protocols: "{{ allowed_protocols }}"
+      <<: *login
+  - name: Start NFS
+    na_ontap_nfs:
+      state: present
+      service_state: started
+      vserver: "{{ svm_name }}"
+      nfsv3: enabled
+      nfsv4: enabled
+      <<: *login
+  
