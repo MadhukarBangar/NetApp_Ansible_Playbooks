@@ -3,7 +3,7 @@
 clustername: NetApp_Cluster
 clusterip: x.x.x.x
 user: admin
-pass: P@ssw0rd
+pass: **********
 https_option: true
 validate_certs_option: false
 
