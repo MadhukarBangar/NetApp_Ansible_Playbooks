@@ -1,7 +1,7 @@
 
 # Cluster Login
-clustername: SH_Cluster3
-clusterip: 10.216.51.186
+clustername: NetApp_Cluster
+clusterip: x.x.x.x
 user: admin
 pass: P@ssw0rd
 https_option: true
@@ -22,7 +22,7 @@ root_volaggr: ansible_aggr
 root_volsecurity: unix
 allowed_aggrs: ansible_aggr
 allowed_protocols: nfs,cifs,iscsi,fcp
-svm_dnsdomain: gsdc.local
+svm_dnsdomain: lab.local
 svm_dnsservers: 192.168.1.101
 
 
