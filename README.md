@@ -81,5 +81,5 @@ Incase if you ran into issues with NetApp python modules you need to manually im
 ```
 pip install netapp-lib
 
-import netapp_lib  in the python shell
+import netapp_lib ---> in the python shell
 ```
