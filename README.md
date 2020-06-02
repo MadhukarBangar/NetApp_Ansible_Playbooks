@@ -72,3 +72,14 @@ cluster::> set -privilege advanced
 cluster::> system services web modify -http-enabled true
 
 ```
+
+#### Note: Configuration might differ from version to version
+
+Incase if you ran into issues with NetApp python modules you need to manually import them
+
+
+```
+pip install netapp-lib
+
+import netapp_lib  in the python shell
+```
